@@ -52,21 +52,25 @@ namespace ApiCarApp.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(bodyType).State = EntityState.Modified;
+            if (ModelState.IsValid)
+            {
+                _context.Entry(bodyType).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BodyTypeExists(id))
+                try
                 {
-                    return NotFound();
+                    await _context.SaveChangesAsync();
                 }
-                else
+
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!BodyTypeExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
             }
 
@@ -78,10 +82,14 @@ namespace ApiCarApp.Controllers
         [HttpPost]
         public async Task<ActionResult<BodyType>> PostBodyType(BodyType bodyType)
         {
-            _context.BodyTypes.Add(bodyType);
-            await _context.SaveChangesAsync();
+            if (ModelState.IsValid)
+            {
+                _context.BodyTypes.Add(bodyType);
+                await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBodyType", new { id = bodyType.Id }, bodyType);
+                return CreatedAtAction("GetBodyType", new { id = bodyType.Id }, bodyType);
+            }
+            else return NoContent();
         }
 
         // DELETE: api/BodyTypes/5

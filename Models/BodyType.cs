@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using ApiCarApp.Validators;
+
 
 namespace ApiCarApp.Models
 {
+    [BodyTypeValidator(ErrorMessage ="Такий тип кузова вже існує")]
     public class BodyType
     {
         public BodyType()
