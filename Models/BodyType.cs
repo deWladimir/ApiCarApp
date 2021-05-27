@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ApiCarApp.Models
@@ -17,7 +18,7 @@ namespace ApiCarApp.Models
         public string Name { get; set; }
 
         public string Info { get; set; }
-
+        [JsonIgnore]
         public virtual ICollection<Automobile> Automobiles { get; set; }
     }
 }

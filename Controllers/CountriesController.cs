@@ -25,10 +25,9 @@ namespace ApiCarApp.Controllers
         public async Task<ActionResult<IEnumerable<Country>>> GetCountries()
         {
             var countries = await _context.Countries.ToListAsync();
-            foreach (var c in countries)
-            {
-                c.Firms = _context.Firms.Where(obj => obj.CountryId == c.Id).ToList();
-            }
+
+           
+
             return countries;
         }
 
@@ -43,8 +42,7 @@ namespace ApiCarApp.Controllers
                 return NotFound();
             }
 
-            country.Firms = _context.Firms.Where(obj => obj.CountryId == country.Id).ToList();
-
+           
             return country;
         }
 

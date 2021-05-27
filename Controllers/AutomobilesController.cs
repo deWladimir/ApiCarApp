@@ -25,14 +25,6 @@ namespace ApiCarApp.Controllers
         public async Task<ActionResult<IEnumerable<Automobile>>> GetAutomobiles()
         {
             var automobiles = await _context.Automobiles.ToListAsync();
-
-            foreach (var a in automobiles)
-            {
-                a.BodyType = await _context.BodyTypes.FindAsync(a.BodyTypeId);
-                a.FuelType = await _context.FuelTypes.FindAsync(a.FuelTypeId);
-                a.Firm = await _context.Firms.FindAsync(a.FirmId);
-            }
-
             return automobiles;
         }
 
@@ -41,16 +33,6 @@ namespace ApiCarApp.Controllers
         public async Task<ActionResult<Automobile>> GetAutomobile(int id)
         {
             var automobile = await _context.Automobiles.FindAsync(id);
-
-            if (automobile == null)
-            {
-                return NotFound();
-            }
-
-            automobile.BodyType = await _context.BodyTypes.FindAsync(automobile.BodyTypeId);
-            automobile.FuelType = await _context.FuelTypes.FindAsync(automobile.FuelTypeId);
-            automobile.Firm = await _context.Firms.FindAsync(automobile.FirmId);
-
             return automobile;
         }
 

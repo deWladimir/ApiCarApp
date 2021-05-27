@@ -25,10 +25,7 @@ namespace ApiCarApp.Controllers
         public async Task<ActionResult<IEnumerable<FuelType>>> GetFuelTypes()
         {
             var fueltypes = await _context.FuelTypes.ToListAsync();
-            foreach (var f in fueltypes)
-            {
-                f.Automobiles = _context.Automobiles.Where(obj => obj.FuelTypeId == f.Id).ToList();
-            }
+            
             return fueltypes;
         }
 
@@ -42,8 +39,6 @@ namespace ApiCarApp.Controllers
             {
                 return NotFound();
             }
-
-            fuelType.Automobiles = _context.Automobiles.Where(obj => obj.FuelTypeId == fuelType.Id).ToList();
 
             return fuelType;
         }

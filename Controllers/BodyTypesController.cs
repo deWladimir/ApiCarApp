@@ -25,10 +25,6 @@ namespace ApiCarApp.Controllers
         public async Task<ActionResult<IEnumerable<BodyType>>> GetBodyTypes()
         {
             var bodytypes = await _context.BodyTypes.ToListAsync();
-            foreach (var b in bodytypes)
-            {
-                b.Automobiles = _context.Automobiles.Where(obj => obj.BodyTypeId == b.Id).ToList();
-            }
             return bodytypes;
         }
 
@@ -42,8 +38,6 @@ namespace ApiCarApp.Controllers
             {
                 return NotFound();
             }
-
-            bodyType.Automobiles = _context.Automobiles.Where(obj => obj.BodyTypeId == bodyType.Id).ToList();
 
             return bodyType;
         }

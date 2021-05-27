@@ -27,8 +27,7 @@ namespace ApiCarApp
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<CarsContext>(options => options.UseSqlServer(connection));
-            services.AddControllers().AddJsonOptions(o => o.JsonSerializerOptions
-                        .ReferenceHandler = ReferenceHandler.Preserve);
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +37,10 @@ namespace ApiCarApp
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {

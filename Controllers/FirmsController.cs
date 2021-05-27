@@ -25,11 +25,7 @@ namespace ApiCarApp.Controllers
         public async Task<ActionResult<IEnumerable<Firm>>> GetFirms()
         {
             var firms = await _context.Firms.ToListAsync();
-            foreach (var f in firms)
-            {
-                f.Country = _context.Countries.Find(f.CountryId);
-                f.Automobiles = _context.Automobiles.Where(obj => obj.FirmId == f.Id).ToList();
-            }
+           
             return firms;
         }
 
@@ -44,11 +40,7 @@ namespace ApiCarApp.Controllers
                 return NotFound();
             }
 
-            firm.Country = await _context.Countries.FindAsync(firm.CountryId);
-
-            firm.Automobiles = _context.Automobiles.Where(obj => obj.FirmId == id).ToList();
-
-
+            
             return firm;
         }
 
